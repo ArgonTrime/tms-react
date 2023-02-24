@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import Btn from "../../../../components/Btn";
+import Button from "../../../../components/Button";
 
 import styles from "./style.module.scss";
 
@@ -11,7 +11,10 @@ const CounterView = ({
   handleReset,
   handleDecrement,
 }) => {
-  const [even, odd] = ["Number is even", "Number is not even"];
+  const { even, odd } = {
+    even: "Number is even",
+    odd: "Number is not even",
+  };
 
   return (
     <div
@@ -22,9 +25,9 @@ const CounterView = ({
       <div>{countValue}</div>
       <div>{isEven ? even : odd}</div>
       <div>
-        <Btn text="-" handleClick={handleDecrement} styleBtn={styles.btn} />
-        <Btn text="Reset" handleClick={handleReset} styleBtn={styles.btn} />
-        <Btn text="+" handleClick={handleIncrement} styleBtn={styles.btn} />
+        <Button text="-" handleClick={handleDecrement} styles={styles.btn} />
+        <Button text="Reset" handleClick={handleReset} styles={styles.btn} />
+        <Button text="+" handleClick={handleIncrement} styles={styles.btn} />
       </div>
     </div>
   );
