@@ -1,7 +1,12 @@
 import { useCallback, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-import { getAberageValueCounters, getSumCounters } from "../../utils";
+import {
+  getAberageValueCounters,
+  getSumCounters,
+  incrementEvenCounters,
+  decrementOddCounters,
+} from "../../utils";
 import CountersView from "../../components/CountersView";
 
 const CountersContainer = () => {
@@ -15,11 +20,13 @@ const CountersContainer = () => {
 
   const handleAddCounter = useCallback(() => {
     setConters((state) => {
+      const copyCounters = structuredClone(state);
       const counter = {
         id: uuid(),
         countValue: 0,
       };
-      return [...state, counter];
+
+      return [...incrementEvenCounters(copyCounters), counter];
     });
   }, []);
   const handleRemoveAllCounters = useCallback(() => {
@@ -33,7 +40,7 @@ const CountersContainer = () => {
         (counter) => counter.id === id
       );
       copyCounters.splice(indexCounter, 1);
-      return copyCounters;
+      return decrementOddCounters(copyCounters);
     });
   }, []);
 
