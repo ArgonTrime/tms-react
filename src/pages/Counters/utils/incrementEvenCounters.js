@@ -1,6 +1,5 @@
 const incrementEvenCounters = (counters) => {
-  const copyCounters = structuredClone(counters);
-  return copyCounters.map((counter) => {
+  return counters.map((counter) => {
     if (counter.countValue % 2 === 0) {
       return { ...counter, countValue: counter.countValue + 1 };
     }

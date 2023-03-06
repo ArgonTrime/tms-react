@@ -7,7 +7,7 @@ import styles from "./style.module.scss";
 
 const CountersView = ({
   counters,
-  commonValues,
+  counterStats,
   handleAddCounter,
   handleRemoveAllCounters,
   handleRemoveCounter,
@@ -15,7 +15,7 @@ const CountersView = ({
   handleDecrement,
   handleReset,
 }) => {
-  const { countCounters, sumCounters, averageValueCounters } = commonValues;
+  const { countCounters, sumCounters, averageValueCounters } = counterStats;
   return (
     <div className={styles.wrapper}>
       <div className={styles.monitor}>
@@ -64,7 +64,7 @@ CountersView.propTypes = {
       countValue: PropTypes.number.isRequired,
     })
   ),
-  commonValues: PropTypes.objectOf(PropTypes.number),
+  counterStats: PropTypes.objectOf(PropTypes.number),
   handleAddCounter: PropTypes.func.isRequired,
   handleRemoveAllCounters: PropTypes.func.isRequired,
   handleRemoveCounter: PropTypes.func.isRequired,

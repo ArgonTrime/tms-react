@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 import {
-  getAberageValueCounters,
+  getAverageValueCounters,
   getSumCounters,
   incrementEvenCounters,
   decrementOddCounters,
@@ -12,34 +12,35 @@ import CountersView from "../../components/CountersView";
 const CountersContainer = () => {
   const [counters, setConters] = useState([]);
 
-  const commonValues = {
+  const counterStats = {
     countCounters: counters.length,
     sumCounters: getSumCounters(counters),
-    averageValueCounters: getAberageValueCounters(counters),
+    averageValueCounters: getAverageValueCounters(counters),
   };
 
   const handleAddCounter = useCallback(() => {
     setConters((state) => {
-      const copyCounters = structuredClone(state);
+      const copyCounters = incrementEvenCounters(structuredClone(state));
       const counter = {
         id: uuid(),
         countValue: 0,
       };
-
-      return [...incrementEvenCounters(copyCounters), counter];
+      copyCounters.push(counter);
+      return copyCounters;
     });
   }, []);
-  const handleRemoveAllCounters = useCallback(() => {
-    setConters((state) => []);
-  }, []);
+
+  const handleRemoveAllCounters = () => {
+    setConters([]);
+  };
 
   const handleRemoveCounter = useCallback((id) => {
     setConters((state) => {
       const copyCounters = structuredClone(state);
-      const indexCounter = copyCounters.findIndex(
+      const counterIndex = copyCounters.findIndex(
         (counter) => counter.id === id
       );
-      copyCounters.splice(indexCounter, 1);
+      copyCounters.splice(counterIndex, 1);
       return decrementOddCounters(copyCounters);
     });
   }, []);
@@ -83,7 +84,7 @@ const CountersContainer = () => {
   return (
     <CountersView
       counters={counters}
-      commonValues={commonValues}
+      counterStats={counterStats}
       handleAddCounter={handleAddCounter}
       handleRemoveAllCounters={handleRemoveAllCounters}
       handleRemoveCounter={handleRemoveCounter}
