@@ -1,0 +1,39 @@
+.wrapper {
+    border: 1px solid #e6e7e8;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 20px;
+    &_done {
+        background-color: #c7c7c9;
+        & p {
+            text-decoration: line-through;
+        }
+        
+    }
+    
+}
+.editing {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.btn {
+    padding: 5px 10px;
+    border: 1px solid #c7c7c9;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #FFF;
+    &:disabled {
+        background-color: #9c9d9f;
+    }
+    &_add {
+        background: #00AC6B;
+    }
+    &_delete {
+        background: #f7734a;
+    }
+}
