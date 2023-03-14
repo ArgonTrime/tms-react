@@ -1,0 +1,16 @@
+.wrapper {
+    border: 1px solid #e6e7e8;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 20px;
+    &_done {
+        background-color: #c7c7c9;
+        & p {
+            text-decoration: line-through;
+        }
+        
+    }
+    
+}
