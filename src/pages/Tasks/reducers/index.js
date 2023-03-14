@@ -19,7 +19,6 @@ const tasksReducer = handleActions(
       const copyState = structuredClone(state);
       copyState.tasks.push(newTask);
       return copyState;
-      //   return { ...state, tasks: [...state.tasks, newTask] };
     },
     [actions.removeTask]: (state, { payload: taskId }) => {
       const copyState = structuredClone(state);

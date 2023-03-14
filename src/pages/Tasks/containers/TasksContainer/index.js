@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useInputText } from "../../../../hooks";
 import {
   completedTask,
   createTask,
@@ -14,18 +14,14 @@ import TasksView from "../../components/TasksView";
 import { tasksSelector } from "../../selectors";
 
 const TasksContainer = () => {
-  const [task, setTask] = useState("");
-  const handleTaskChange = (event) => {
-    setTask(event.target.value);
-  };
-
+  const { inputText, handleTextEditing, handleTextClear } = useInputText("");
   const dispatch = useDispatch();
   const tasks = useSelector(tasksSelector);
 
   const handleTaskCreate = () => {
-    if (task.length > 0) {
-      dispatch(createTask(task));
-      setTask("");
+    if (inputText.length > 0) {
+      dispatch(createTask(inputText));
+      handleTextClear();
     }
   };
   const handleRemoveTask = (taskId) => {
@@ -46,8 +42,8 @@ const TasksContainer = () => {
 
   return (
     <TasksView
-      task={task}
-      handleTaskChange={handleTaskChange}
+      task={inputText}
+      handleTaskChange={handleTextEditing}
       handleTaskCreate={handleTaskCreate}
     >
       {[...tasks].reverse().map(({ id, text, isDone, isEditing }) => (

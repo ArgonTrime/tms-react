@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 
-import Button from "../../../../components/Button";
+import { useInputText } from "../../../../hooks";
+import TaskControls from "../TaskControls";
+import TaskEditingControls from "../TaskEditingControls/TaskEditingContorls";
 
 import styles from "./style.module.scss";
 
@@ -16,10 +17,7 @@ const Task = ({
   handleEditingTaskCancel,
   handleEditingTaskConfirm,
 }) => {
-  const [textEditing, setTextEditing] = useState(text);
-  const handleTextEditing = (event) => {
-    setTextEditing(event.target.value);
-  };
+  const { inputText, handleTextEditing } = useInputText(text);
 
   return (
     <div
@@ -28,41 +26,25 @@ const Task = ({
       }
     >
       {isEditing ? (
-        <div className={styles.editing}>
-          <input type="text" value={textEditing} onChange={handleTextEditing} />
-          <Button
-            text="Confirm"
-            handleClick={() => handleEditingTaskConfirm(id, textEditing)}
-            styles={`${styles.btn} ${styles.btn_add}`}
-            disabled={textEditing === text || textEditing.length === 0}
-          />
-          <Button
-            text="Cancel"
-            styles={`${styles.btn} ${styles.btn_delete}`}
-            handleClick={() => handleEditingTaskCancel(id)}
-          />
-        </div>
+        <TaskEditingControls
+          id={id}
+          text={text}
+          inputText={inputText}
+          handleTextEditing={handleTextEditing}
+          handleEditingTaskConfirm={handleEditingTaskConfirm}
+          handleEditingTaskCancel={handleEditingTaskCancel}
+        />
       ) : (
         <p>{text}</p>
       )}
       {!isEditing && (
-        <div>
-          <input
-            type="checkbox"
-            checked={isDone}
-            onChange={() => handleCompletedTask(id)}
-          />
-          <Button
-            text="Editing"
-            handleClick={() => handleEditingTask(id)}
-            styles={`${styles.btn} ${styles.btn_add}`}
-          />
-          <Button
-            text="Delete"
-            handleClick={() => handleRemoveTask(id)}
-            styles={`${styles.btn} ${styles.btn_delete}`}
-          />
-        </div>
+        <TaskControls
+          id={id}
+          isDone={isDone}
+          handleCompletedTask={handleCompletedTask}
+          handleEditingTask={handleEditingTask}
+          handleRemoveTask={handleRemoveTask}
+        />
       )}
     </div>
   );
