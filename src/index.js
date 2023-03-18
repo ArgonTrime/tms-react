@@ -5,12 +5,11 @@ import { Provider } from "react-redux";
 
 import Router from "./Routes/Router";
 import MainLayout from "./components/MainLayout";
-import configureStore from "./store/configureStore";
+import { store } from "./store/configureStore";
 
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const store = configureStore();
 
 root.render(
   <React.StrictMode>

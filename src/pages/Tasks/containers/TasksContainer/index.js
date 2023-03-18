@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { useInputText } from "../../../../hooks";
+import TasksView from "../../components/TasksView";
 import {
   completedTask,
   createTask,
@@ -8,15 +8,15 @@ import {
   editingTaskCancel,
   editingTaskConfirm,
   removeTask,
-} from "../../actions";
+} from "../../reducers";
+import { tasksList } from "../../selectors";
+import { useInputText } from "../../../../hooks";
 import Task from "../../components/Task";
-import TasksView from "../../components/TasksView";
-import { tasksSelector } from "../../selectors";
 
 const TasksContainer = () => {
-  const { inputText, handleTextEditing, handleTextClear } = useInputText("");
   const dispatch = useDispatch();
-  const tasks = useSelector(tasksSelector);
+  const tasks = useSelector(tasksList);
+  const { inputText, handleTextEditing, handleTextClear } = useInputText("");
 
   const handleTaskCreate = () => {
     if (inputText.length > 0) {
