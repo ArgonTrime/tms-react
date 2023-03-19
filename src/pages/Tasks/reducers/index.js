@@ -10,9 +10,11 @@ const tasksManagerSlice = createSlice({
   initialState,
   reducers: {
     createTask: (state, { payload }) => {
+      const { text, description } = payload;
       const newTask = {
         id: uuid(),
-        text: payload,
+        text,
+        description,
         isDone: false,
         isEditing: false,
       };
@@ -35,9 +37,11 @@ const tasksManagerSlice = createSlice({
       completedTask.isEditing = !completedTask.isEditing;
     },
     editingTaskConfirm: (state, { payload }) => {
-      const { taskId, newText } = payload;
+      const { taskId, taskValues } = payload;
+      const { text, description } = taskValues;
       const taskEditing = state.tasks.find(({ id }) => id === taskId);
-      taskEditing.text = newText;
+      taskEditing.text = text;
+      taskEditing.description = description;
       taskEditing.isEditing = !taskEditing.isEditing;
     },
   },

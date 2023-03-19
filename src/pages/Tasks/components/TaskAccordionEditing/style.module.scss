@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    text-align: left;
+}
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}

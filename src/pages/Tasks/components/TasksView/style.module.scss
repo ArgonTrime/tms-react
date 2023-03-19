@@ -22,3 +22,8 @@
     color: #FFF;
     background: #00AC6B;
 }
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

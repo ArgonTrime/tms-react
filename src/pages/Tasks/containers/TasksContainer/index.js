@@ -1,6 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-
-import TasksView from "../../components/TasksView";
 import {
   completedTask,
   createTask,
@@ -9,19 +7,27 @@ import {
   editingTaskConfirm,
   removeTask,
 } from "../../reducers";
+
+import TasksView from "../../components/TasksView";
 import { tasksList } from "../../selectors";
-import { useInputText } from "../../../../hooks";
-import Task from "../../components/Task";
+import { useForm } from "hooks";
+import TaskAccordion from "../../components/TaskAccordion";
+import TaskAccordionEditing from "../../components/TaskAccordionEditing";
 
 const TasksContainer = () => {
   const dispatch = useDispatch();
   const tasks = useSelector(tasksList);
-  const { inputText, handleTextEditing, handleTextClear } = useInputText("");
+  const { form, handleChange, handleReset } = useForm({
+    text: "",
+    description: "",
+  });
 
-  const handleTaskCreate = () => {
-    if (inputText.length > 0) {
-      dispatch(createTask(inputText));
-      handleTextClear();
+  const handleTaskCreate = (event) => {
+    event.preventDefault();
+    const { text, description } = form;
+    if (text.length > 0 && description.length > 0) {
+      dispatch(createTask(form));
+      handleReset();
     }
   };
   const handleRemoveTask = (taskId) => {
@@ -36,30 +42,40 @@ const TasksContainer = () => {
   const handleEditingTaskCancel = (taskId) => {
     dispatch(editingTaskCancel(taskId));
   };
-  const handleEditingTaskConfirm = (taskId, newText) => {
-    dispatch(editingTaskConfirm({ taskId, newText }));
+  const handleEditingTaskConfirm = (taskId, taskValues) => {
+    dispatch(editingTaskConfirm({ taskId, taskValues }));
   };
 
   return (
     <TasksView
-      task={inputText}
-      handleTaskChange={handleTextEditing}
+      task={form}
+      handleTaskChange={handleChange}
       handleTaskCreate={handleTaskCreate}
     >
-      {[...tasks].reverse().map(({ id, text, isDone, isEditing }) => (
-        <Task
-          text={text}
-          key={id}
-          id={id}
-          isDone={isDone}
-          isEditing={isEditing}
-          handleRemoveTask={handleRemoveTask}
-          handleCompletedTask={handleCompletedTask}
-          handleEditingTask={handleEditingTask}
-          handleEditingTaskCancel={handleEditingTaskCancel}
-          handleEditingTaskConfirm={handleEditingTaskConfirm}
-        />
-      ))}
+      {[...tasks]
+        .reverse()
+        .map(({ id, text, description, isDone, isEditing }) =>
+          isEditing ? (
+            <TaskAccordionEditing
+              key={id}
+              id={id}
+              taskValue={{ text, description }}
+              isEditing={isEditing}
+              handleEditingTaskCancel={handleEditingTaskCancel}
+              handleEditingTaskConfirm={handleEditingTaskConfirm}
+            />
+          ) : (
+            <TaskAccordion
+              key={id}
+              id={id}
+              isDone={isDone}
+              taskValue={{ text, description }}
+              handleRemoveTask={handleRemoveTask}
+              handleCompletedTask={handleCompletedTask}
+              handleEditingTask={handleEditingTask}
+            />
+          )
+        )}
     </TasksView>
   );
 };
