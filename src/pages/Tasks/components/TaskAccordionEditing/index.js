@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 
 import { useForm } from "hooks";
-import TaskInputEditing from "../TaskInputEditing";
+import TaskInput from "../TaskInput";
 
 import styles from "./style.module.scss";
 
@@ -24,7 +24,7 @@ const TaskAccordionEditing = ({
     <div className={styles.wrapper}>
       <Accordion defaultExpanded={isEditing} expanded={true}>
         <AccordionSummary>
-          <TaskInputEditing
+          <TaskInput
             name="text"
             label="Task title edit"
             variant="outlined"
@@ -33,7 +33,7 @@ const TaskAccordionEditing = ({
           />
         </AccordionSummary>
         <AccordionDetails>
-          <TaskInputEditing
+          <TaskInput
             name="description"
             label="Task description edit"
             variant="outlined"

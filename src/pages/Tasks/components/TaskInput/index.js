@@ -1,14 +1,7 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
-const TaskInputEditing = ({
-  name,
-  label,
-  value,
-  variant,
-  width = 100,
-  onChange,
-}) => {
+const TaskInput = ({ name, label, value, variant, width = 100, onChange }) => {
   return (
     <>
       <TextField
@@ -22,7 +15,7 @@ const TaskInputEditing = ({
     </>
   );
 };
-TaskInputEditing.propTypes = {
+TaskInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
@@ -30,4 +23,4 @@ TaskInputEditing.propTypes = {
   width: PropTypes.number,
   onChange: PropTypes.func.isRequired,
 };
-export default TaskInputEditing;
+export default TaskInput;

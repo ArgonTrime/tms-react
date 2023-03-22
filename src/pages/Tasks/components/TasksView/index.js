@@ -1,5 +1,7 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import PropTypes from "prop-types";
+
+import TaskInput from "../TaskInput";
 
 import styles from "./style.module.scss";
 
@@ -9,14 +11,14 @@ const TasksView = ({ task, handleTaskChange, handleTaskCreate, children }) => {
     <div className={styles.wrapper}>
       <Box component="form" onSubmit={handleTaskCreate} className={styles.form}>
         <h1>To do List</h1>
-        <TextField
+        <TaskInput
           name="text"
           label="Task title"
           variant="outlined"
           value={text}
           onChange={handleTaskChange}
         />
-        <TextField
+        <TaskInput
           name="description"
           label="Task description"
           variant="outlined"
