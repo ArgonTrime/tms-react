@@ -31,7 +31,7 @@ const TaskAccordion = ({
           <div className={styles.controls}>
             <Checkbox
               color="success"
-              onChange={() => handleCompletedTask(id)}
+              onChange={(event) => handleCompletedTask(id, event)}
             />
             <Button
               variant="contained"

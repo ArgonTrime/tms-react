@@ -24,17 +24,18 @@ const tasksManagerSlice = createSlice({
       const taskIndex = state.tasks.findIndex(({ id }) => id === taskId);
       state.tasks.splice(taskIndex, 1);
     },
-    completedTask: (state, { payload: taskId }) => {
+    completedTask: (state, { payload }) => {
+      const { taskId, isCheked } = payload;
       const completedTask = state.tasks.find(({ id }) => id === taskId);
-      completedTask.isDone = !completedTask.isDone;
+      completedTask.isDone = isCheked;
     },
     editingTask: (state, { payload: taskId }) => {
       const completedTask = state.tasks.find(({ id }) => id === taskId);
-      completedTask.isEditing = !completedTask.isEditing;
+      completedTask.isEditing = true;
     },
     editingTaskCancel: (state, { payload: taskId }) => {
       const completedTask = state.tasks.find(({ id }) => id === taskId);
-      completedTask.isEditing = !completedTask.isEditing;
+      completedTask.isEditing = false;
     },
     editingTaskConfirm: (state, { payload }) => {
       const { taskId, taskValues } = payload;
@@ -42,7 +43,7 @@ const tasksManagerSlice = createSlice({
       const taskEditing = state.tasks.find(({ id }) => id === taskId);
       taskEditing.text = text;
       taskEditing.description = description;
-      taskEditing.isEditing = !taskEditing.isEditing;
+      taskEditing.isEditing = false;
     },
   },
 });

@@ -13,10 +13,11 @@ import { tasksList } from "../../selectors";
 import { useForm } from "hooks";
 import TaskAccordion from "../../components/TaskAccordion";
 import TaskAccordionEditing from "../../components/TaskAccordionEditing";
+import { sortedTasks } from "pages/Tasks/utils";
 
 const TasksContainer = () => {
   const dispatch = useDispatch();
-  const tasks = useSelector(tasksList);
+  const tasks = sortedTasks(useSelector(tasksList));
   const { form, handleChange, handleReset } = useForm({
     text: "",
     description: "",
@@ -33,8 +34,9 @@ const TasksContainer = () => {
   const handleRemoveTask = (taskId) => {
     dispatch(removeTask(taskId));
   };
-  const handleCompletedTask = (taskId) => {
-    dispatch(completedTask(taskId));
+  const handleCompletedTask = (taskId, event) => {
+    const isCheked = event.target.checked;
+    dispatch(completedTask({ taskId, isCheked }));
   };
   const handleEditingTask = (taskId) => {
     dispatch(editingTask(taskId));
@@ -52,30 +54,28 @@ const TasksContainer = () => {
       handleTaskChange={handleChange}
       handleTaskCreate={handleTaskCreate}
     >
-      {[...tasks]
-        .reverse()
-        .map(({ id, text, description, isDone, isEditing }) =>
-          isEditing ? (
-            <TaskAccordionEditing
-              key={id}
-              id={id}
-              taskValue={{ text, description }}
-              isEditing={isEditing}
-              handleEditingTaskCancel={handleEditingTaskCancel}
-              handleEditingTaskConfirm={handleEditingTaskConfirm}
-            />
-          ) : (
-            <TaskAccordion
-              key={id}
-              id={id}
-              isDone={isDone}
-              taskValue={{ text, description }}
-              handleRemoveTask={handleRemoveTask}
-              handleCompletedTask={handleCompletedTask}
-              handleEditingTask={handleEditingTask}
-            />
-          )
-        )}
+      {tasks.map(({ id, text, description, isDone, isEditing }) =>
+        isEditing ? (
+          <TaskAccordionEditing
+            key={id}
+            id={id}
+            taskValue={{ text, description }}
+            isEditing={isEditing}
+            handleEditingTaskCancel={handleEditingTaskCancel}
+            handleEditingTaskConfirm={handleEditingTaskConfirm}
+          />
+        ) : (
+          <TaskAccordion
+            key={id}
+            id={id}
+            isDone={isDone}
+            taskValue={{ text, description }}
+            handleRemoveTask={handleRemoveTask}
+            handleCompletedTask={handleCompletedTask}
+            handleEditingTask={handleEditingTask}
+          />
+        )
+      )}
     </TasksView>
   );
 };
