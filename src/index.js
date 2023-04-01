@@ -12,13 +12,13 @@ import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <HashRouter>
-      <Provider store={store}>
-        <MainLayout>
-          <Router />
-        </MainLayout>
-      </Provider>
-    </HashRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <HashRouter>
+    <Provider store={store}>
+      <MainLayout>
+        <Router />
+      </MainLayout>
+    </Provider>
+  </HashRouter>
+  //</React.StrictMode>
 );
