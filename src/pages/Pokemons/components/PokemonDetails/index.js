@@ -7,15 +7,9 @@ import {
   currentPokemon,
   currentPokemonIsLoading,
 } from "pages/Pokemons/selectors";
-import { statsPackage } from "pages/Pokemons/utils";
+import { statIconsByName, statsPackage } from "pages/Pokemons/utils";
 import PokemonStat from "../PokemosStat";
 
-import sword from "static/icon/sword.png";
-import swords from "static/icon/swords.png";
-import defence from "static/icon/defence.png";
-import defenceSpecial from "static/icon/defenceSpecial.png";
-import health from "static/icon/heart.png";
-import speed from "static/icon/fast-forward.png";
 import styles from "./style.module.scss";
 
 const PokemonDetails = () => {
@@ -39,36 +33,14 @@ const PokemonDetails = () => {
           <h2>{pokemonName.toUpperCase()}</h2>
           <img src={sprites && sprites.front_default} alt={name} />
           <div className={styles.statsWrapper}>
-            <PokemonStat
-              countStat={pokemonStat && pokemonStat.attack}
-              srcImg={sword}
-              textStat="Attack"
-            />
-            <PokemonStat
-              countStat={pokemonStat && pokemonStat["special-attack"]}
-              srcImg={swords}
-              textStat="Special attack"
-            />
-            <PokemonStat
-              countStat={pokemonStat && pokemonStat.defense}
-              srcImg={defence}
-              textStat="Defense"
-            />
-            <PokemonStat
-              countStat={pokemonStat && pokemonStat["special-defense"]}
-              srcImg={defenceSpecial}
-              textStat="Special defense"
-            />
-            <PokemonStat
-              countStat={pokemonStat && pokemonStat.hp}
-              srcImg={health}
-              textStat="Health"
-            />
-            <PokemonStat
-              countStat={pokemonStat && pokemonStat.speed}
-              srcImg={speed}
-              textStat="Speed"
-            />
+            {pokemonStat?.map(([statName, statValue]) => (
+              <PokemonStat
+                key={statName}
+                countStat={statValue}
+                textStat={statName}
+                srcImg={statIconsByName[statName]}
+              />
+            ))}
           </div>
         </div>
       )}

@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 
 import { ROUTE_NAMES } from "Routes/routeNames";
 
@@ -19,7 +18,7 @@ const PokemonsView = ({ pokemons, handleGetPokemon }) => {
       </div>
       <div className={styles.pokemonList}>
         {pokemons.map(({ name }) => (
-          <Link to={`${ROUTE_NAMES.POKEMONS}/${name}`} key={uuid()}>
+          <Link to={`${ROUTE_NAMES.POKEMONS}/${name}`} key={name}>
             <div className={styles.pokemonListItem}>{name}</div>
           </Link>
         ))}

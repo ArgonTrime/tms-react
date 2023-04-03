@@ -1,7 +1,8 @@
 const statsPackage = (stats) => {
-  return stats.reduce((result, { base_stat, stat }) => {
+  const statsEntries = stats.reduce((result, { base_stat, stat }) => {
     result[stat.name] = base_stat;
     return result;
   }, {});
+  return Object.entries(statsEntries);
 };
 export default statsPackage;
