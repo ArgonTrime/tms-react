@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/tms-react/static/css/main.523a71f8.css",
-    "main.js": "/tms-react/static/js/main.c69c8768.js",
+    "main.css": "/tms-react/static/css/main.d6fa592a.css",
+    "main.js": "/tms-react/static/js/main.d096a197.js",
     "static/media/swords.png": "/tms-react/static/media/swords.f00c96ff6fb510c44b26.png",
     "static/media/defence.png": "/tms-react/static/media/defence.303ef15520ec90133ead.png",
     "static/media/defenceSpecial.png": "/tms-react/static/media/defenceSpecial.df3f474accef26c86613.png",
@@ -9,11 +9,11 @@
     "static/media/heart.png": "/tms-react/static/media/heart.3b8c5628cf2a02599312.png",
     "static/media/fast-forward.png": "/tms-react/static/media/fast-forward.1ff102382edcd895e7ea.png",
     "index.html": "/tms-react/index.html",
-    "main.523a71f8.css.map": "/tms-react/static/css/main.523a71f8.css.map",
-    "main.c69c8768.js.map": "/tms-react/static/js/main.c69c8768.js.map"
+    "main.d6fa592a.css.map": "/tms-react/static/css/main.d6fa592a.css.map",
+    "main.d096a197.js.map": "/tms-react/static/js/main.d096a197.js.map"
   },
   "entrypoints": [
-    "static/css/main.523a71f8.css",
-    "static/js/main.c69c8768.js"
+    "static/css/main.d6fa592a.css",
+    "static/js/main.d096a197.js"
   ]
 }
