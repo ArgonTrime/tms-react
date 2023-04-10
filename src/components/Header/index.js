@@ -1,22 +1,26 @@
 import { Link } from "react-router-dom";
-import { omit } from "lodash";
+import { useSelector } from "react-redux";
 
-import { ROUTE_NAMES } from "../../Routes/routeNames";
+import { isAuthenticatedSelector } from "pages/SignIn/selectors";
+import { NAVIGATION_ITEMS, privateNavsKeys, publicNavsKeys } from "./config";
+import LogOutButton from "components/LogOutButton";
+import { logOut } from "utils";
 
 import styles from "./style.module.scss";
 
 const Header = () => {
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const navsItemsAccessKe = isAuthenticated ? privateNavsKeys : publicNavsKeys;
   return (
     <div className={styles.wrapper}>
-      {Object.entries(omit(ROUTE_NAMES, ["POKEMON_DETAILS"])).map(
-        ([routeName, path]) => {
-          return (
-            <Link key={path} to={path} className={styles.link}>
-              {routeName}
-            </Link>
-          );
-        }
-      )}
+      <div>
+        {NAVIGATION_ITEMS[navsItemsAccessKe].map(({ title, path }) => (
+          <Link key={path} to={path} className={styles.link}>
+            {title}
+          </Link>
+        ))}
+      </div>
+      <div>{isAuthenticated && <LogOutButton handleClick={logOut} />}</div>
     </div>
   );
 };

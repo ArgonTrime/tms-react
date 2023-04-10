@@ -1,11 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
 
-import tasksManagerReducer from "pages/Tasks/reducers";
-import pokemons from "pages/Pokemons/reducers";
+import { rootReducer } from "./rootReducer";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["auth"],
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    tasksManager: tasksManagerReducer,
-    pokemons,
-  },
+  reducer: persistedReducer,
 });
+export const persistor = persistStore(store);
